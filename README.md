@@ -49,6 +49,9 @@ Run migrations (required, seeds demo data):
 php artisan migrate --seed
 ```
 
+Note: This creates the `password_reset_tokens` table required for the Forgot Password flow.
+Mail is set to log by default in `.env.example` to avoid SMTP errors during local dev.
+
 SQLite file (created when you run migrations):
 ```
 database/database.sqlite
@@ -77,11 +80,13 @@ php artisan migrate:fresh --seed
 - CRUD for `users` with pagination + search
 - API token auth via `POST /api/auth/token`
 - Sanctum-protected API routes (`auth:sanctum`)
+- Public homepage user directory with user cards (email + copy phone)
 - UI-only future ideas panel (3x3 cards)
 - Create form dummy data generator
+- Auth screens styled to match the CRUD form UI
 
 ## API Endpoints
-Base: `http://127.0.0.1:8090/api`
+Base: `http://127.0.0.1:90/api`
 
 - `POST /auth/token` (issue API token)
 - `POST /auth/logout` (revoke current token, requires `auth:sanctum`)
