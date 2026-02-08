@@ -61,8 +61,10 @@ SANCTUM_STATEFUL_DOMAINS=localhost,localhost:8090,127.0.0.1,127.0.0.1:8090
 
 Start the server:
 ```powershell
-php -S 127.0.0.1:8090 -t public
+php -S localhost:90 -t public
 ```
+
+Note: Port `90` may require elevated privileges and may already be in use. If it fails, use a higher port like `8091` and update `APP_URL`/`SANCTUM_STATEFUL_DOMAINS` accordingly.
 
 For the admin UI assets:
 ```powershell
