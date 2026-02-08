@@ -43,20 +43,14 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-SQLite file (already created in this project):
-```
-database/database.sqlite
-```
-
 Run migrations (required, seeds demo data):
 ```powershell
 php artisan migrate --seed
 ```
 
-Update `.env` for Sanctum + local host:
+SQLite file (created when you run migrations):
 ```
-APP_URL=http://localhost:8090
-SANCTUM_STATEFUL_DOMAINS=localhost,localhost:8090,127.0.0.1,127.0.0.1:8090
+database/database.sqlite
 ```
 
 Start the server:
