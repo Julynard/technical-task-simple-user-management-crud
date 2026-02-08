@@ -36,10 +36,10 @@ Dashboard UI (Breeze + Inertia) includes the CRUD:
 
 ## Setup
 ```powershell
-git clone <your-repo-url>
-cd C:\Users\Admin\Desktop\technical-task-simple-user-management-crud
+git clone https://github.com/Julynard/technical-task-simple-user-management-crud.git
+cd C:\Users\Admin\...\technical-task-simple-user-management-crud
 composer install
-@copy .env.example .env
+cp .env.example .env
 php artisan key:generate
 ```
 
@@ -48,9 +48,9 @@ SQLite file (already created in this project):
 database/database.sqlite
 ```
 
-Run migrations:
+Run migrations (required, seeds demo data):
 ```powershell
-php artisan migrate
+php artisan migrate --seed
 ```
 
 Update `.env` for Sanctum + local host:
@@ -72,9 +72,9 @@ npm install
 npm run dev
 ```
 
-If you want to reset and seed:
+If you want to reset and re-seed:
 ```powershell
-php artisan migrate:fresh
+php artisan migrate:fresh --seed
 ```
 
 ## Working Features
