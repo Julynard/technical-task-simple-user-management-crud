@@ -20,6 +20,7 @@ Laravel 12 backend with a Breeze-authenticated Vue dashboard.
 - `users` table is only for the CRUD list (created via the API/UI).
 - This mirrors the Nova-style split: backend admins vs. managed users.
 - The CRUD UI now lives inside the authenticated Dashboard.
+- Login and Registration are for backend users (admins) only.
 
 ## Architecture Overview
 Backend follows a clean layering approach:

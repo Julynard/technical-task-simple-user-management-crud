@@ -109,6 +109,7 @@ const copyPhone = async (user) => {
             </h1>
             <p class="mt-3 max-w-2xl text-base text-slate-600">
               Browse every user record with instant access to contact details, company info, and notes.
+              Login and Registration are for backend admins only.
             </p>
           </div>
           <div class="rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-amber-100">

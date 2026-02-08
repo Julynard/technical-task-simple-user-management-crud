@@ -36,8 +36,11 @@ const submit = () => {
           Welcome back
         </p>
         <h1 class="mt-2 text-2xl font-semibold text-slate-900">Log in</h1>
-        <p class="mt-2 text-sm text-slate-600">
-          Access the admin dashboard and manage users.
+        <p class="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-600">
+          <span>Access the admin dashboard and manage users.</span>
+          <span class="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+            Login is for backend admins only.
+          </span>
         </p>
       </div>
 
