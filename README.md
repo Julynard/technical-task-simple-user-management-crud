@@ -1,4 +1,4 @@
-# Technical Task: Simple User Management CRUD
+﻿# Technical Task: Simple User Management CRUD
 
 Laravel 12 backend with a Breeze-authenticated Vue dashboard.
 
@@ -8,13 +8,18 @@ Laravel 12 backend with a Breeze-authenticated Vue dashboard.
 - Tooling: Pint, PHPStan + Larastan
 
 ## Repository Structure
-- `backend` Laravel API
+- Laravel application lives at the repository root
+
+## Requirements
+- PHP 8.2+
+- Composer
+- Node.js + npm
 
 ## Auth vs CRUD Users
 - `backend_users` table powers the Laravel Breeze admin/auth area.
 - `users` table is only for the CRUD list (created via the API/UI).
 - This mirrors the Nova-style split: backend admins vs. managed users.
- - The CRUD UI now lives inside the authenticated Dashboard.
+- The CRUD UI now lives inside the authenticated Dashboard.
 
 ## Architecture Overview
 Backend follows a clean layering approach:
@@ -30,14 +35,21 @@ Dashboard UI (Breeze + Inertia) includes the CRUD:
 - **Pages**: Dashboard (`resources/js/Pages/Dashboard.vue`)
 
 ## Setup
-
-### Backend (Laravel)
 ```powershell
 git clone <your-repo-url>
-cd C:\Users\Admin\Desktop\technical-task-simple-user-management-crud\backend
+cd C:\Users\Admin\Desktop\technical-task-simple-user-management-crud
 composer install
 @copy .env.example .env
 php artisan key:generate
+```
+
+SQLite file (already created in this project):
+```
+database/database.sqlite
+```
+
+Run migrations:
+```powershell
 php artisan migrate
 ```
 
@@ -47,15 +59,13 @@ APP_URL=http://localhost:8090
 SANCTUM_STATEFUL_DOMAINS=localhost,localhost:8090,127.0.0.1,127.0.0.1:8090
 ```
 
-Start the backend:
+Start the server:
 ```powershell
-cd C:\Users\Admin\Desktop\technical-task-simple-user-management-crud\backend
 php -S 127.0.0.1:8090 -t public
 ```
 
 For the admin UI assets:
 ```powershell
-cd C:\Users\Admin\Desktop\technical-task-simple-user-management-crud\backend
 npm install
 npm run dev
 ```
@@ -112,22 +122,17 @@ The Postman collection includes `Auth - Token` and auto-saves the token into `ap
 }
 ```
 
-## API–Dashboard Interaction
+## API-Dashboard Interaction
 - The dashboard calls `GET /api/users` for list/pagination/search.
 - Create/update/delete routes are called from the dashboard UI.
 - Validation errors (422) are mapped to specific form fields.
 - Soft deletes are enabled; re-creating a deleted email restores the user and sets `restored_at`.
 
-## UI Notes
-- CRUD UI is now fully Tailwind utility classes (no custom CRUD CSS).
-- Import/export and bulk-delete UI actions were removed for a simpler workflow.
-- A “Future ideas” panel shows a 3x3 grid of feature cards.
-- Create form includes a “Fill dummy data” button (create-only).
+## Soft Delete Restore Behavior
+If a user is soft-deleted and the same email is created again, the record is restored and `restored_at` is set.
 
 ## Quality Commands
-### Backend
 ```powershell
-cd C:\Users\Admin\Desktop\technical-task-simple-user-management-crud\backend
 vendor\bin\pint
 vendor\bin\phpstan analyse --memory-limit=2G
 ```
@@ -137,6 +142,3 @@ Import the collection:
 ```
 Postman-User-CRUD.postman_collection.json
 ```
-
-
-
