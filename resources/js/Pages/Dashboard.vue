@@ -1,20 +1,27 @@
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import BaseModal from "@/Components/Crud/BaseModal.vue";
 import UserForm from "@/Components/Crud/UserForm.vue";
 import UserList from "@/Components/Crud/UserList.vue";
 import { Head } from '@inertiajs/vue3';
-import userService from "@/Services/userService";
+import useUsers from "@/Composables/useUsers";
 
-const users = ref([]);
-const meta = ref(null);
-const loading = ref(false);
-const loadError = ref("");
+const {
+  users,
+  meta,
+  loading,
+  loadError,
+  search,
+  currentPage,
+  paginationLinks,
+  loadUsers,
+  deleteUser,
+  formatPageLabel,
+  goToPage,
+} = useUsers();
+
 const selectedUser = ref(null);
-const search = ref("");
-const currentPage = ref(1);
-const perPage = ref(10);
 const showFormModal = ref(false);
 const showStatusModal = ref(false);
 const statusMessage = ref("");
@@ -46,30 +53,6 @@ const futureIdeas = [
   },
 ];
 
-const loadUsers = async (page = 1) => {
-  loading.value = true;
-  loadError.value = "";
-  try {
-    currentPage.value = page;
-    const response = await userService.getUsers({
-      page: currentPage.value,
-      per_page: perPage.value,
-      q: search.value || undefined,
-    });
-    const payload = response ?? {};
-    const list = payload.data?.data ?? payload.data ?? [];
-    users.value = list;
-    meta.value = payload.meta ?? payload.data?.meta ?? null;
-  } catch {
-    loadError.value =
-      "We couldn't load the users right now. Please try again in a moment.";
-    users.value = [];
-    meta.value = null;
-  } finally {
-    loading.value = false;
-  }
-};
-
 const handleSaved = async ({ message }) => {
   statusMessage.value = message;
   showStatusModal.value = true;
@@ -80,7 +63,7 @@ const handleSaved = async ({ message }) => {
 
 const handleDelete = async (user) => {
   try {
-    await userService.deleteUser(user.id);
+    await deleteUser(user.id);
     statusMessage.value = "User deleted successfully.";
     showStatusModal.value = true;
     await loadUsers(currentPage.value);
@@ -99,28 +82,6 @@ const clearSelection = () => {
   selectedUser.value = null;
   showFormModal.value = false;
 };
-
-const paginationLinks = computed(() => meta.value?.links ?? []);
-
-const formatPageLabel = (label) => {
-  if (!label) return "";
-  return label
-    .replace(/&laquo;/g, "<<")
-    .replace(/&raquo;/g, ">>")
-    .replace(/<[^>]*>/g, "")
-    .trim();
-};
-
-const goToPage = (url) => {
-  if (!url) return;
-  const match = url.match(/page=(\d+)/);
-  if (!match) return;
-  loadUsers(Number(match[1]));
-};
-
-watch(search, () => {
-  loadUsers(1);
-});
 
 const openCreate = () => {
   selectedUser.value = null;

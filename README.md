@@ -31,6 +31,7 @@ Backend follows a clean layering approach:
 
 Dashboard UI (Breeze + Inertia) includes the CRUD:
 - **Services**: Centralized API calls (`resources/js/Services/userService.js`)
+- **Composables**: Shared state + CRUD actions (`resources/js/Composables/useUsers.js`)
 - **Components**: Reusable UI (`resources/js/Components/Crud`)
 - **Pages**: Dashboard (`resources/js/Pages/Dashboard.vue`)
 
