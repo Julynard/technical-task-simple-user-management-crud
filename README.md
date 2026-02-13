@@ -50,6 +50,13 @@ Run migrations (required, seeds demo data):
 php artisan migrate --seed
 ```
 
+Backend User Account
+```
+admin@example.com
+password
+```
+
+
 Note: This creates the `password_reset_tokens` table required for the Forgot Password flow.
 Mail is set to log by default in `.env.example` to avoid SMTP errors during local dev.
 
